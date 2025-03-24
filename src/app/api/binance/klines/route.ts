@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import axios from 'axios';
-import https from 'https';
 
 // Mapping interval ke format Binance
 const intervalMap: { [key: string]: string } = {
@@ -28,13 +27,10 @@ const formatSymbol = (symbol: string): string => {
 // Konfigurasi axios untuk Binance
 const binanceApi = axios.create({
   baseURL: 'https://api.binance.com/api/v3',
-  timeout: 30000,
+  timeout: 10000, // 10 detik timeout
   headers: {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-  },
-  httpsAgent: new https.Agent({
-    rejectUnauthorized: false // Hanya untuk development, hapus di production
-  })
+  }
 });
 
 export async function GET(request: Request) {
