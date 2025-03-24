@@ -1,8 +1,12 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
 }
 
 @theme inline {
@@ -20,7 +24,118 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom right,
+      rgb(var(--background-start-rgb)),
+      rgb(var(--background-end-rgb)));
+  min-height: 100vh;
+}
+
+/* Custom styles untuk chart container */
+.chart-container {
+  position: relative;
+  width: 100%;
+  background: white;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: 16/9;
+}
+
+.chart-container>div {
+  flex: 1;
+  min-height: 180px;
+  width: 100%;
+}
+
+/* Custom styles untuk card */
+.crypto-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  max-height: 350px;
+  gap: 0.5rem;
+}
+
+.crypto-card>div:not(.chart-container) {
+  margin-bottom: 0.5rem;
+}
+
+.crypto-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Overlay untuk modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 40;
+}
+
+.crypto-card.col-span-full {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 95%;
+  max-width: 1400px;
+  height: 1000px;
+  z-index: 50;
+  background: white;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  padding: 2rem;
+  overflow-y: auto;
+  margin: 2rem;
+  margin-bottom: 4rem;
+}
+
+.crypto-card.col-span-full .chart-container {
+  height: 800px;
+  margin-bottom: 2.5rem;
+}
+
+.crypto-card.col-span-full .chart-container>div {
+  height: 800px;
+  width: 100%;
+}
+
+/* Custom styles untuk gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Custom styles untuk price change badge */
+.price-change-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.price-change-positive {
+  background-color: rgba(34, 197, 94, 0.1);
+  color: rgb(34, 197, 94);
+}
+
+.price-change-negative {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: rgb(239, 68, 68);
 }
